@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const db = "mongodb://localhost/27017/eventos";
+const db = "mongodb://localhost:27017/santander";
 
 const conectarDB = async () => {
     await mongoose.connect(db)
