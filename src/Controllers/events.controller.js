@@ -1,8 +1,8 @@
-import EventsService from "../Services/events.services.js";
+const EventsService = require("../Services/events.services.js");
 
 const eventsService = new EventsService;
 
-export const getAllEvents = async (req,res) => {
+const getAllEvents = async (req,res) => {
     try {
         const events = await eventsService.getAllEvents();
         res.status(200).json(events);
@@ -11,7 +11,7 @@ export const getAllEvents = async (req,res) => {
     }
 }
 
-export const getEventById = async (req,res) => {
+const getEventById = async (req,res) => {
     try {
         let id = req.params.id;
         const event = await eventsService.getEventById(id);
@@ -24,7 +24,7 @@ export const getEventById = async (req,res) => {
     }
 }
 
-export const createdEvents = async (req,res) => {
+const createdEvents = async (req,res) => {
     try {
         const { name,date,assistance,estimate } = req.body;
         let eventExist = await eventsService.getEventByName(name);
@@ -42,7 +42,7 @@ export const createdEvents = async (req,res) => {
     }
 }
 
-export const updateEvent = async (req,res) => {
+const updateEvent = async (req,res) => {
     try {
         let id = req.params.id;
         let { date,estimate,assistance } = req.body;
@@ -61,7 +61,7 @@ export const updateEvent = async (req,res) => {
     }
 }
 
-export const deleteEvent = async (req,res) => {
+const deleteEvent = async (req,res) => {
     try {
         let id = req.params.id;
         let event = await eventsService.getEventById(id);
@@ -85,4 +85,12 @@ const checkDateValidity = (date,estimate,assistance) => {
 
 const formatDate = (date) => {
     return new Intl.DateTimeFormat('es-AR',{dateStyle: 'medium'}).format(date);
+}
+
+module.exports = {
+    getAllEvents,       
+    getEventById,
+    createdEvents,
+    deleteEvent,
+    updateEvent
 }

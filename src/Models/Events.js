@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const eventsSchema = new mongoose.Schema({
     name:{
@@ -22,6 +22,10 @@ const eventsSchema = new mongoose.Schema({
         type: String,
         required:true
     },
+    place:{
+        type: String,
+        required:true
+    },
     price:{
         type: Number,
         required:true
@@ -40,4 +44,4 @@ const eventsSchema = new mongoose.Schema({
 
 const Events = mongoose.model('Events',eventsSchema);
 
-export default Events;
+module.exports = Events;

@@ -1,4 +1,4 @@
-import Events from "../Models/Events.js";
+const Events = require("../Models/Events.js");
 
 class EventsService {
     async getEventById(id){
@@ -23,4 +23,4 @@ class EventsService {
     }
 }
 
-export default EventsService;
+module.exports = EventsService;
