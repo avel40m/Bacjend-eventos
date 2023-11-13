@@ -1,0 +1,229 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Documentacion de la API Events",
+        "version": "1.0.0",
+        "description": "Esta es la apis de eventos realizada desde el back end que posteriormente se conectara al fornt end, correspondiente al bootscamp de santander y MINDHUB",
+        "contact": {
+            "name": "Mendez Avelino",
+            "email": "avel40m@gmail.com",
+            "url": "https://www.linkedin.com/in/avelino-mendez/"
+        }
+    },
+    "paths": {
+        "title":"Events",
+        "/api/events": {
+            "get": {
+                "summary": "Obteniendo todos los eventos",
+                "responses": {
+                    "200": {
+                        "description": "Muestra todos los eventos"
+                    },
+                    "500": {
+                        "description": "Error en le base de datos o en la query"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Crear un evento nuevo en la base de datos",
+                "requestBody": {
+                    "description": "Ingresar los datos para el nuevo evento, chequear la propiedad assistence o estimate",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/recursos"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "El evento se creo correctamente"
+                    },
+                    "404": {
+                        "description": "El nombre está repetido o hay incosistencias entre las fechas"
+                    },
+                    "500": {
+                        "description": "Error en le base de datos o en la query"
+                    }
+                }
+            }
+        },
+        "/api/events/{id}": {
+            "get": {
+                "summary": "Obteniendo un evento por id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "ID del evento a buscar"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Evento encontrado"
+                    },
+                    "404": {
+                        "description": "El evento no fue encontrado"
+                    },
+                    "500": {
+                        "description": "Error en le base de datos o en la query"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Editar el evento por id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "ID del evento a buscar"
+                    }
+                ],
+                "requestBody": {
+                    "description": "Ingresar los datos editar un evento, chequear la propiedad assistence o estimate",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/recursos"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "204": {
+                        "description": "Evento editado correctamente"
+                    },
+                    "404": {
+                        "description": "El id no fue encontrado o hay incosistencias entre las fechas"
+                    },
+                    "500": {
+                        "description": "Error en le base de datos o en la query"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Eliminar el evento por id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "description": "ID del evento a buscar"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Evento eliminado correctamente"
+                    },
+                    "404": {
+                        "description": "El id no fue encontrado"
+                    },
+                    "500": {
+                        "description": "Error en le base de datos o en la query"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Events": {
+                "type": "object",
+                "description": "Propiedades sobre el Schema Events",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "description": "Es el identificador de cada eventos"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Es el nombre de los eventos"
+                    },
+                    "category": {
+                        "type": "string",
+                        "description": "Determina la categoria del evento"
+                    },
+                    "date": {
+                        "type": "string",
+                        "description": "Fecha el cual se hizo o se espera el evento"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Describe cada eventos"
+                    },
+                    "image": {
+                        "type": "string",
+                        "description": "Una breve foto del evento"
+                    },
+                    "price": {
+                        "type": "Number",
+                        "description": "El costo que tiene el evento"
+                    },
+                    "place": {
+                        "type": "string",
+                        "description": "El lugar en donde se llevará cabo el evento"
+                    },
+                    "capacity": {
+                        "type": "Number",
+                        "description": "Cantidad de personas que pueden estar en el evento"
+                    },
+                    "assistance": {
+                        "type": "Number",
+                        "description": "Si es un evento pasado de la fecha, determina cuantas personas fueron al evento"
+                    },
+                    "estimate": {
+                        "type": "Number",
+                        "description": "Si es un evento futuro de la fecha, determina cuantas personas entran al evento"
+                    }
+                }
+            },
+            "recursos": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "category": {
+                        "type": "string"
+                    },
+                    "date": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "imagen": {
+                        "type": "string"
+                    },
+                    "place": {
+                        "type": "string"
+                    },
+                    "price": {
+                        "type": "number"
+                    },
+                    "capacity": {
+                        "type": "number"
+                    },
+                    "assistance": {
+                        "type": "number"
+                    },
+                    "estimate": {
+                        "type": "number"
+                    }
+                }
+            }
+        }
+    }
+}
