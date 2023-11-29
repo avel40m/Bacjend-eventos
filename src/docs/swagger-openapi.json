@@ -11,9 +11,85 @@
         }
     },
     "paths": {
-        "title":"Events",
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Iniciar sesion",
+                "description": "Iniciar sesion en el sistema",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "requestBody": {
+                    "description": "Ingresar los datos para iniciar la sesion",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/login"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Devuelve el token de la sesion"
+                    },
+                    "404": {
+                        "description": "Error en el envio de los datos"
+                    },
+                    "500": {
+                        "description": "Error en le base de datos o en la query"
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Customer"
+                ],
+                "summary": "Registro",
+                "description": "Registrarme en el sistema",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "requestBody": {
+                    "description": "Ingresar los datos para crear un nuevo customer",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/register"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "El registro fue realizado con exito"
+                    },
+                    "404": {
+                        "description": "Error en el envio de los datos"
+                    },
+                    "500": {
+                        "description": "Error en le base de datos o en la query"
+                    }
+                }
+            }
+        },
         "/api/events": {
             "get": {
+                "tags": [
+                    "Events"
+                ],
                 "summary": "Obteniendo todos los eventos",
                 "responses": {
                     "200": {
@@ -25,6 +101,9 @@
                 }
             },
             "post": {
+                "tags": [
+                    "Events"
+                ],
                 "summary": "Crear un evento nuevo en la base de datos",
                 "requestBody": {
                     "description": "Ingresar los datos para el nuevo evento, chequear la propiedad assistence o estimate",
@@ -51,6 +130,9 @@
         },
         "/api/events/{id}": {
             "get": {
+                "tags": [
+                    "Events"
+                ],
                 "summary": "Obteniendo un evento por id",
                 "parameters": [
                     {
@@ -76,6 +158,9 @@
                 }
             },
             "put": {
+                "tags": [
+                    "Events"
+                ],
                 "summary": "Editar el evento por id",
                 "parameters": [
                     {
@@ -111,6 +196,9 @@
                 }
             },
             "delete": {
+                "tags": [
+                    "Events"
+                ],
                 "summary": "Eliminar el evento por id",
                 "parameters": [
                     {
@@ -221,6 +309,42 @@
                     },
                     "estimate": {
                         "type": "number"
+                    }
+                }
+            },
+
+            "login": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    }
+                }
+            },
+            "register": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "confirmPassword": {
+                        "type": "string"
+                    },
+                    "rol": {
+                        "type": "string",
+                        "enum": [
+                            "ADMIN",
+                            "USER"
+                        ]
                     }
                 }
             }

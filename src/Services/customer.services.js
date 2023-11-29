@@ -23,7 +23,7 @@ const login = async (body) => {
         throw new Error('El password es incorrecto');
     }
     const token = generateToken(customer);
-    return token;
+    return {customer,token};
 }
 
 const hashPassword =(password) => {

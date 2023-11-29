@@ -1,5 +1,7 @@
 const express = require('express');
+const cors = require("cors");
 const morgan = require('morgan');
+require("dotenv").config();
 require('./db.js');
 const eventsRoutes = require('./Router/events.router.js');
 const customerRoutes = require('./Router/customer.router.js');
@@ -9,6 +11,7 @@ const swaggerUI = require('swagger-ui-express');
 const swaggerDocs = require('./docs/swagger-openapi.json');
 
 const app = express();
+app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(passport.initialize());
