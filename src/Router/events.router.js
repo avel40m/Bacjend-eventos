@@ -1,13 +1,14 @@
 const express = require('express');
 const { getAllEvents, getEventById, createdEvents, updateEvent, deleteEvent } = require('../Controllers/events.controller');
 const passport = require('passport');
+const { validateCreateEvents } = require('../Middleware/events.middleware');
 const router = express.Router();
 
 router.get('/events', getAllEvents);
 
 router.get('/events/:id', getEventById);
 
-router.post('/events',passport.authenticate('jwt',{session: false}),createdEvents);
+router.post('/events',passport.authenticate('jwt',{session: false}),validateCreateEvents,createdEvents);
 
 router.put('/events/:id',passport.authenticate('jwt',{session: false}),updateEvent);
 

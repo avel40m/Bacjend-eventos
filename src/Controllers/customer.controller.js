@@ -2,11 +2,10 @@ const customerService = require('../Services/customer.services');
 
 const register = async (req,res) => {
     try {
-        const body = req.body;
-        const customer = await customerService.register(body)
-        res.status(201).json(customer);
+        await customerService.register(req.body)
+        res.status(201);
     } catch (error) {
-        res.status(500).error({error: error.message});
+        res.status(500).json({error: error.message});
     }
 }
 
